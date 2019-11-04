@@ -1,0 +1,31 @@
+const {
+  override,
+  fixBabelImports,
+  addLessLoader,
+  addBabelPlugins,
+  addBabelPresets
+} = require('customize-cra');
+
+module.exports = override(
+  fixBabelImports('import', {
+    libraryName: 'antd',
+    libraryDirectory: 'es',
+    style: true,
+  }),
+  addLessLoader({
+    javascriptEnabled: true,
+    modifyVars: {
+      '@primary-color': '#1890ff'
+    },
+  }),
+  ...addBabelPlugins([
+    'emotion',
+    {
+      sourceMap: true,
+      autoLabel: false,
+      labelFormat: '[local]',
+      cssPropOptimization: true
+    }
+  ]),
+  ...addBabelPresets(['@emotion/babel-preset-css-prop'])
+)
